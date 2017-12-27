@@ -62,9 +62,10 @@ by @seanvree, @wjbeckett, and @jonfinley
 
 <!-- https://jonsuh.com/blog/jquery-ajax-call-to-php-script-with-json-return/ -->
 
+            <script type="text/javascript">
 
-        <script type="text/javascript">
-            $("document").ready(function(){
+                /*     ONLOAD HERE????? */
+                $("document").ready(function(){
                 $(".js-ajax-php-json").submit(function(){
                     var data = {
                     "action": "settings"
@@ -76,28 +77,11 @@ by @seanvree, @wjbeckett, and @jonfinley
                         url: "assets/php/response.php", //Relative or absolute path to response.php file
                         data: data,
                         success: function(data) {
-                            <?php
-                                $file = fopen("assets/settings.json","w");
-                                //this line below is NOT working, it creates, and writes the "title" to /assets/settings.json but will not parse the data like below
-                                
-                                $stringData = "Site Title: $title" . PHP_EOL;
-                                fwrite($file, $stringData);
-                                $stringData = "Site URL: $siteurl" . PHP_EOL;
-                                fwrite($file, $stringData);
-                                $stringData = "Update Branch: $updatebranch" . PHP_EOL;
-                                fwrite($file, $stringData);
-                                $stringData = "Time Zone: $timezone" . PHP_EOL;
-                                fwrite($file, $stringData);
-                                $stringData = "Time Standard: $timestandard" . PHP_EOL;
-                                fwrite($file, $stringData);
-                                $stringData = "Time Time Refresh: $rftime" . PHP_EOL;
-                                fwrite($file, $stringData);
-                                echo fclose($file);
 
-                                //To do:  Add the services above
-                            ?>;
+                        //script below creates settings.JSON ONLOAD ?? But DOES NOT fire on FORM SUBMIT (need vice versa)
 
-                            //The below block is only for testing to show settings are being accepted and re-wrote to the settings.php page (permissions). 
+
+                            //THIS fires ON SUBMIT.  The below block is only for testing to show settings are being accepted and re-wrote to the settings.php page (permissions). 
                             $(".the-return").html(
                                 "Site Title: " + data["title"] + 
                                 "<br />Site URL: " + data["siteurl"] + 
@@ -118,6 +102,7 @@ by @seanvree, @wjbeckett, and @jonfinley
             });
         </script>
 
+
 </head>
 
 <body>
@@ -134,96 +119,97 @@ by @seanvree, @wjbeckett, and @jonfinley
         
             <div class="Row">
 
-                <form action="assets/php/response.php" class="js-ajax-php-json" method="post" accept-charset="utf-8">
+                    <form action="assets/php/response.php" class="js-ajax-php-json" method="post" accept-charset="utf-8">
 
-                    <div id="appbase" class="Column"> 
-                        <center>APPLICATION BASE:</center>
+                        <div id="appbase" class="Column"> 
+                            <center>APPLICATION BASE:</center>
 
-                        <br>
+                            <br>
 
-                        Site Title: <input type="text" name="title" value="" placeholder="<?php echo $config['title'];?>" />
+                            Site Title: <input type="text" name="title" value="" placeholder="<?php echo $config['title'];?>" />
+                            
+                            <br>
+
+                            Site URL: <input type="text" name="siteurl" value="" placeholder="<?php echo $config['siteurl'];?>" />
+
+                            <br>
+
+                            Update Branch:
+                                <select name="updatebranch">
+                                    <option value="<?php echo $config['updatebranch'];?>">develop</option>
+                                    <option value="Master">Master</option>
+                                </select>
+
+                            <br>
+
+                            Time Zone: <input type="text" name="timezone" value="" placeholder="<?php echo $config['timezone'];?>" />
+                            
+                            <br>
+
+                            Time Standard:
+                                <select name="timestandard">
+                                    <option value="<?php echo $config['timestandard'];?>">False</option>
+                                    <option value="True">True</option>
+                                </select>
+
+                            <br>
+
+                            Time Refresh:  <input type="text" name="rftime" value="" placeholder="<?php echo $config['rftime'];?>" />(in milliseconds)
+
+                            <br>
+
+                        </div>
+
+                        <div id="sysinfo" class="Column">
+                            <center>SYSTEM INFO:</center>
+                            
+                            <br>
+
+                            CPU "OK": <input type="text" name="cpuok" value="" placeholder="<?php echo $config['cpuok'];?>" />
+
+                            <br>
+                            
+                            CPU "Warn": <input type="text" name="cpuwarn" value="" placeholder="<?php echo $config['cpuwarn'];?>" />
+
+                            <br>
+                            
+                            RAM "OK": <input type="text" name="cpuok" value="" placeholder="<?php echo $config['ramok'];?>" />
+
+                            <br>
+                            
+                            RAM "Warn": <input type="text" name="ramwarn" value="" placeholder="<?php echo $config['ramwarn'];?>" />
+
+                            <br>
+                            
+                            Ping Host: <input type="text" name="pinghost" value="" placeholder="<?php echo $config['pinghost'];?>" />
+
+                            <br>
+                            
+                            Ping Port: <input type="text" name="pingport" value="" placeholder="<?php echo $config['pingport'];?>" />
+
+                            <br>
+                            
+                            Sysinfo Refresh: <input type="text" name="rfsysinfo" value="" placeholder="<?php echo $config['rfsysinfo'];?>" />
+
+                            <br>
+
+                            
+                        </div>
                         
-                        <br>
+                        <div id="services" class="Column">
+                            <center>SERVICES:</center>
+                        </div>
 
-                         Site URL: <input type="text" name="siteurl" value="" placeholder="<?php echo $config['siteurl'];?>" />
+                            <br>
 
-                        <br>
+                        <div>
+                            <center>
+                            <input type="submit" name="submit" value="Submit form"  />
+                            </center>
+                        </div>
 
-                        Update Branch:
-                            <select name="updatebranch">
-                                <option value="<?php echo $config['updatebranch'];?>">develop</option>
-                                <option value="Master">Master</option>
-                            </select>
+                    </form> 
 
-                        <br>
-
-                        Time Zone: <input type="text" name="timezone" value="" placeholder="<?php echo $config['timezone'];?>" />
-                        
-                        <br>
-
-                        Time Standard:
-                            <select name="timestandard">
-                                <option value="<?php echo $config['timestandard'];?>">False</option>
-                                <option value="True">True</option>
-                            </select>
-
-                        <br>
-
-                        Time Refresh:  <input type="text" name="rftime" value="" placeholder="<?php echo $config['rftime'];?>" />(in milliseconds)
-
-                        <br>
-
-                    </div>
-
-                    <div id="sysinfo" class="Column">
-                        <center>SYSTEM INFO:</center>
-                        
-                        <br>
-
-                         CPU "OK": <input type="text" name="cpuok" value="" placeholder="<?php echo $config['cpuok'];?>" />
-
-                        <br>
-                        
-                        CPU "Warn": <input type="text" name="cpuwarn" value="" placeholder="<?php echo $config['cpuwarn'];?>" />
-
-                        <br>
-                        
-                        RAM "OK": <input type="text" name="cpuok" value="" placeholder="<?php echo $config['ramok'];?>" />
-
-                        <br>
-                        
-                        RAM "Warn": <input type="text" name="ramwarn" value="" placeholder="<?php echo $config['ramwarn'];?>" />
-
-                        <br>
-                        
-                        Ping Host: <input type="text" name="pinghost" value="" placeholder="<?php echo $config['pinghost'];?>" />
-
-                        <br>
-                        
-                        Ping Port: <input type="text" name="pingport" value="" placeholder="<?php echo $config['pingport'];?>" />
-
-                        <br>
-                        
-                        Sysinfo Refresh: <input type="text" name="rfsysinfo" value="" placeholder="<?php echo $config['rfsysinfo'];?>" />
-
-                        <br>
-
-                        
-                    </div>
-                    
-                    <div id="services" class="Column">
-                        <center>SERVICES:</center>
-                    </div>
-
-                        <br>
-
-                    <div>
-                        <center>
-                        <input type="submit" name="submit" value="Submit form"  />
-                        </center>
-                    </div>
-
-                </form>
 
             </div>
             <br>
