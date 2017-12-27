@@ -3,21 +3,18 @@
 <p align="center"><b>Webfront to live display the status of any webapp or service  </b></p>
 <br>
 
-<b> Version:</b> v0.11.0m [BETA]
+<b> Version:</b> v0.10.6d [BETA]
 
-[![Docker build](https://img.shields.io/docker/build/monitorr/monitorr.svg?maxAge=2592000)](https://hub.docker.com/r/monitorr/monitorr/)
-
-<b> Latest major change: </b> Added index.min.php for optimal display when using as iframe plug-in (See [WIKI](https://github.com/Monitorr/Monitorr/wiki/Integration:--Organizr))
+<b> Latest major change: </b>  Added update function (including branch switching)!
 
 ## Features:
 
 - LIVE!
 - Self-hosted
-- Monitor any app on any domain
-- Host system resources display (CPU, MEM, PING, Uptime)
+- Monitor any app on any domain (NEW)
+- Host system resources display (CPU, MEM, PING, Uptime)(NEW)
 - Server DTG data
-- Update Monitorr via web UI / branch switching
-- Minimal UI for iFrame displays (See [WIKI](https://github.com/Monitorr/Monitorr/wiki/Integration:--Organizr))
+- Update Monitorr via web UI.
 - User customizable system threshold colors
 
 <b> Features in development: </b>
@@ -34,7 +31,7 @@
 
 In use with [Organizr](https://github.com/causefx/Organizr)
 
-<img src="https://i.imgur.com/7vAZJbS.png[/img]">
+<img src="https://i.imgur.com/VdcgPHs.png[/img]">
 
 
 ## Prerequisites:
@@ -49,9 +46,7 @@ In use with [Organizr](https://github.com/causefx/Organizr)
 
 2) Make sure the user account that runs your webserver has RW access to the monitorr folder (eg. for linux it's usually www-data:www-data) - this is for updates to work properly.
 
-3) Browse to <localhost\domain>/monitorr/index.php (config.php will be auto populated in /assets/config.php)
-
-4) Edit `assets/config.php`:
+3) Edit `assets/config.php`:
  - timezone
  - Site Title
  - Site URL
@@ -60,7 +55,7 @@ In use with [Organizr](https://github.com/causefx/Organizr)
  - Services you want to monitor
  - Branch you want to be on for updates (master/develop)
 
-5) Enjoy! Have a Donut. Drink a Coffee.
+4) Enjoy! Have a Donut. Drink a Coffee.
 <br>
 
 ## Feature Requests:

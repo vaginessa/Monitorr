@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,13 +13,13 @@ by @seanvree, @wjbeckett, and @jonfinley
   https://github.com/Monitorr/Monitorr 
 --> 
 
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="apple-touch-icon" href="favicon.ico">
-
+    
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Monitorr">
     <meta name="author" content="Monitorr">
@@ -45,6 +44,7 @@ by @seanvree, @wjbeckett, and @jonfinley
         }
 
         .auto-style1 {
+            float: center;
             text-align: center;
         }
     </style>
@@ -59,14 +59,12 @@ by @seanvree, @wjbeckett, and @jonfinley
     <?php include ('assets/config.php'); ?>
     <?php include ('assets/php/check.php') ;?>
     <?php include ('assets/php/gitinfo.php'); ?>
-
-    <title><?php echo $config['title']; ?></title>
     
     <script src="assets/js/jquery.min.js"></script>
 
     <script src="assets/js/pace.js" async></script>
 
-    <script type= "text/javascript">
+    <script type= "text/javascript" async>
         $(document).ready(function() {
             function update() {
             $.ajax({
@@ -76,7 +74,7 @@ by @seanvree, @wjbeckett, and @jonfinley
             success: function(data) {
                 $("#timer").html(data); 
                 window.setTimeout(update, 2000);
-                }
+            }
             });
             }
             update();
@@ -91,23 +89,20 @@ by @seanvree, @wjbeckett, and @jonfinley
             setInterval(statusCheck, <?php echo $config['rfsysinfo']; ?>);
     </script>
 
+    <title><?php echo $config['title']; ?></title>
+
+
 </head>
 
 <body onload="statusCheck()">
-
-    <script>
-        document.body.className += ' fade-out';
-            $(function() { 
-                $('body').removeClass('fade-out'); 
-                });
-    </script>
-
+    <br>
+    <!-- Fixed navbar -->
     <div class="navbar-brand">
         <a class="navbar-brand" href="<?php echo $config['siteurl']; ?>">
             <?php echo $config['title']; ?>
         </a>
     </div>
-    
+
     <div class="container">
         <!-- /row -->
         <div class="row">
@@ -137,7 +132,7 @@ by @seanvree, @wjbeckett, and @jonfinley
 
                         <div class="dtg" id="timer"></div>
 
-                        <script src="assets/js/clock.js"></script>
+                        <script type="text/javascript" src="assets/js/clock.js"></script>
 
                     </div> 
 
@@ -158,15 +153,21 @@ by @seanvree, @wjbeckett, and @jonfinley
 
     <!-- /container -->
 
+
     <div class="footer">
       
        <p> <a href="https://github.com/monitorr/Monitorr" target="_blank"> Repo: Monitorr </a> // <a href="https://github.com/Monitorr/Monitorr/releases" target="_blank"> Version: <?php echo file_get_contents( "assets/js/version/version.txt" );?> </a> </p>
 
-        <script src="assets/js/update.js"></script>
-
-        <a class="version_check" id="version_check" style="cursor: pointer;">Check for Update</a>
+        <script src="assets/js/update.js" type="text/javascript"></script>
         
+        <div>
+            <a class="version_check" id="version_check" style="cursor: pointer;">Check for Update</a>
+        </div>
+
     </div>
+
+
+
 
 </body>
 

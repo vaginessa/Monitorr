@@ -4,19 +4,27 @@
 //  'dontedit' => 'EDITHERE'
 
 $config = array(
-    'title' => 'Monitorr', // Site Title
+    'title' => 'monitorr', // Site Title 
     'siteurl' => 'http://localhost', // SITE URL
     'updateBranch' => 'develop', // update branch you wish to use // "master" or "develop"
+     'timezone' => 'America/Los_Angeles',
     'timestandard' => 'False', // True for Standard Time, DEFAULT = False
-    'rftime' => '', // time refresh
-    'rfsysinfo' => '5000', // system info refresh in milliseconds
-    'pinghost' => '8.8.8.8', // URL or IP to ping
-    'pingport' => '53', // port to ping (defaults to 53)
+    'rftime' => '10000', // time refresh
+
+  
     'cpuok' => '50', //CPU% less than this will be green
     'cpuwarn' => '90', //CPU% less than this will be yellow
     'ramok' => '50', //RAM% below this is green
     'ramwarn' => '90', //RAM% below this will be yellow
-    'timezone' => 'UTC',
+    'pinghost' => '8.8.8.8', // URL or IP to ping
+    'pingport' => '53', // port to ping (defaults to 53)
+    'rfsysinfo' => '5000', // system info refresh in milliseconds
+
+
+
+
+
+
     // if on Linux, the timezone script will automatically select your timezone
     // For Windows, set the timezone. Default is UTC Time.
     // I.E. ($timezone = 'America/Los_Angeles',) list of timezone: https://php.net/manual/en/timezones.php
@@ -31,23 +39,14 @@ $config = array(
 //      "link" => "http://linktoyourapp.com",
 //      "image" => "ACTUALAPPNAME.png"
 //    ),
+
+
 $myServices = array(
     "Monitorr" => array(
         "link" => "http://localhost/monitorr",
         "image" => "monitorr.png"
         ),
-    "PLEX" => array(
-        "link" => "http://localhost:32400",
-        "image" => "plex.png"
-        ),
-    "Sonarr" => array(
-        "link" => "http://localhost:8989",
-        "image" => "sonarr.png"
-        ),
-    "Radarr" => array(
-        "link" => "http://localhost:7878",
-        "image" => "radarr.png"
-        ),
+        
     "PlexPy" => array(
         "link" => "http://localhost:8181",
         "image" => "plexpy.png"
