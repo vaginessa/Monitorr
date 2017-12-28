@@ -28,7 +28,7 @@
         };
 
 
-        // FWRTE SCRIPT FROM INDEX HERE NOT IN INDEX
+        // FWRTE SCRIPT FROM INDEX HERE NOT IN INDEX:
 
         function write(){
             $file = "../settings.json";
@@ -38,7 +38,8 @@
                 fwrite($fh, $stringData);
 
             fclose($fh); 
+            alert("Form submitted successfully");
         };
+        
 
-            
     ?>
