@@ -428,6 +428,12 @@ line {
 
 /* Settings Page*/
 
+#form {
+    width: 100%;
+    display: table-row-group;
+
+}
+
 .Row {
     display: table;
     width: 100%;
@@ -435,6 +441,8 @@ line {
     table-layout: fixed;
     border-spacing: 1px;
     float: inherit;
+    padding-left: 10%;
+    padding-right: 10%
 }
 
 .Column {
