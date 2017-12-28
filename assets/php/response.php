@@ -5,6 +5,7 @@
             if (isset($_POST["action"]) && !empty($_POST["action"])) { //Checks if action value exists
                 $action = $_POST["action"];
                 switch($action) { //Switch case for value of action
+                    // Change the below value to swtich from writing json values to php values
                     // case "settings": settings_function(); break;
                     case "settings": write(); break;
 
