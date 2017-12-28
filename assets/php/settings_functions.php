@@ -1,4 +1,7 @@
 <?php
+
+// THIS FILE IS NOT BEING USED FOR SETTINGS FUCTION. THIS IS AN OLD FILE
+	
 // Write array into json config file
 function json_write($json, $path, $key = ''){
 	if (!empty($key)){
