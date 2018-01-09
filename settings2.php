@@ -1,4 +1,6 @@
 <?php
+
+//HEAVILY BORROWED FROM PLPP, please check them out
 // Start Session
 session_start();
 
@@ -13,16 +15,16 @@ session_start();
 //}
 
 // Defining constants
-define('mon_PATH', '');
-define('mon_INCLUDE_PATH', mon_PATH.'assets/php/');
-define('mon_CONFIGURATION_PATH', mon_PATH.'assets/config/');
-define('mon_LANGUAGES_PATH', mon_PATH.'assets/languages/');
-define('mon_CSS_PATH', mon_PATH.'assets/css/');
-define('mon_JS_PATH', mon_PATH.'assets/js/');
-define('mon_TEMPLATES_PATH', mon_PATH.'assets/templates/');
-define('mon_FONTS_PATH', mon_PATH.'assets/fonts/');
-define('mon_IMGCACHE_PATH', mon_PATH.'assets/cache/');
-define('mon_BASE_PATH', $_SERVER['SCRIPT_NAME']);
+define('MON_PATH', '');
+define('MON_INCLUDE_PATH', mon_PATH.'assets/php/');
+define('MON_CONFIGURATION_PATH', mon_PATH.'assets/config/');
+define('MON_LANGUAGES_PATH', mon_PATH.'assets/languages/');
+define('MON_CSS_PATH', mon_PATH.'assets/css/');
+define('MON_JS_PATH', mon_PATH.'assets/js/');
+define('MON_TEMPLATES_PATH', mon_PATH.'assets/templates/');
+define('MON_FONTS_PATH', mon_PATH.'assets/fonts/');
+define('MON_IMGCACHE_PATH', mon_PATH.'assets/cache/');
+define('MON_BASE_PATH', $_SERVER['SCRIPT_NAME']);
 
 // Defining runtime variables and setting standard details
 $monConfiguration = array(
@@ -245,6 +247,43 @@ $monConfigurationSettings = array(
 			),
 	),
 	'services' => array( // SERVICES TBD
+		'name' => 'User Services',
+		'description' => 'Monitorr Services',
+		'monservice' => array(
+			//EXAMPLE ONLY and thought process
+			'id' => array( // DEVCHANGETHIS
+				'name' => 'id',
+				'help' => 'sort number',
+				'type' => 'string',
+				'default' => '1'
+			),
+			'name' => array( // DEVCHANGETHIS
+				'name' => 'NAME OF APP',
+				'help' => 'Name of APP',
+				'type' => 'string',
+				'default' => 'monitorr'
+			),
+			'clickurl' => array( // DEVCHANGETHIS
+				'name' => 'URL',
+				'help' => 'enter the url that you wish to browse to',
+				'type' => 'string',
+				'default' => 'http://localhost/monitorr'
+			),
+			'image' => array( // DEVCHANGETHIS
+				'name' => 'Service Image',
+				'help' => 'Image for your app. actualappname.png',
+				'type' => 'string',
+				'default' => 'monitorr.png'
+			),
+			'pingurl' => array( // DEVCHANGETHIS
+				'name' => 'Ping URL',
+				'help' => 'enter your url you want test or the internal ip:port',
+				'type' => 'string',
+				'default' => 'http://localhost/monitorr'
+			),
+		),
+		),
+
 	),
 	'advancedsettings' => array( // ADVANCED USER SETTINGS
 		'name' => 'Advanced User Settings',
@@ -352,5 +391,134 @@ $monConfigurationSettings = array(
 			),
 	),
 );
+
+//$mon_strings = array();
+$monErrors = array();
+$monOutput = array(
+	'Title' => '',
+	'Errors' => '',
+	'Menu' => '',
+	'Content' => '',
+	'Script' => '',
+	'Include' => '',
+);
+$mon_token = '';
+
+// Include functions and classes DEVCHANGETHIS to something
+include(MON_INCLUDE_PATH.'mon.functions.php');
+include(MON_INCLUDE_PATH.'mon.classes.php');
+include(MON_INCLUDE_PATH.'class.plexAPI.php');
+
+
+if (!is_writable(MON_CONFIGURATION_PATH)) {
+	$monErrors[] = MON_CONFIGURATION_PATH.' must be writable!!!';
+	$monOutput['Title'] = 'Monitorr - Settings';
+}
+else {
+
+	// Generate default config files
+	foreach ($monConfigurationSettings as $key => $value) {
+		if (!file_exists(MON_CONFIGURATION_PATH.$key.'.json')) {
+			foreach ($value['settings'] as $setting => $setting_value) {
+				$monConfiguration[$key][$setting] = $setting_value['default'];
+			}
+			$success = json_write($monConfiguration, MON_CONFIGURATION_PATH, $key);
+			if ($success[$key] == 'true') {
+				$monNotifications[] = 'Configuration file "'.MON_CONFIGURATION_PATH.$key.'.json" successfully generated!';
+//				chmod(mon_CONFIGURATION_PATH.$key.'.json', 0666);
+			}
+			else {
+				foreach ($success[$key] as $error_key => $errorValue) {
+					$monErrors[] = $errorValue;
+				}
+			}
+		}
+	}
+
+	// Load configuration files
+	$monConfiguration = json_load($monConfiguration, MON_CONFIGURATION_PATH, '');
+	foreach ($monConfiguration as $key => $details) {
+		if (empty($monConfiguration[$key])) {
+			$monErrors[] = 'Unable to load configuration file "'.MON_CONFUGURATION_PATH.$key.'.json"!';
+		}
+		else {
+			// Something to do here?
+		}
+	}
+
+	// Setting Error level
+	if ($monConfiguration['usersettings']['debug']) {
+		error_reporting(-1);
+		ini_set("display_errors", 1);
+		// Register error handler
+		set_error_handler("error_handler");
+		set_exception_handler("error_handler");
+		register_shutdown_function("error_handler");
+	}
+	else {
+		error_reporting(0);
+		ini_set('display_errors','Off');
+	}
+
+
+	// Generate guid if not yet set
+	if (empty($monConfiguration['general']['script_guid'])) {
+		$monConfiguration['general']['script_guid'] = plexAPI::generateGUID(); //leftovers doesnt matter
+		$success = json_write($monConfiguration, MON_CONFIGURATION_PATH, 'general');
+		if ($success['general'] == 'true') {
+			$monNotifications[] = 'Configuration file "'.MON_CONFIGURATION_PATH.'general.json" successfully updated with new GUID!';
+//			chmod(MON_CONFIGURATION_PATH.$key.'.json', 0666);
+		}
+		else {
+			foreach ($success['general'] as $error_key => $errorValue) {
+				$monErrors[] = $errorValue;
+			}
+		}
+	}
+
+
+	// Saving the settings
+	if (isset($_POST['section'])) {
+
+		foreach ($_POST as $key => $value) {
+			if ($key <> 'section'){
+				unset($monConfiguration[$_POST['section']][$key]);
+				$monConfiguration[$_POST['section']][$key] = $value;
+			}
+		}
+
+		$success = json_write($monConfiguration, MON_CONFIGURATION_PATH, $_POST['section']);
+		if ($success[$_POST['section']] == 'true') {
+			$monNotifications[] = 'Configuration file "'.MON_CONFIGURATION_PATH.$_POST['section'].'.json" successfully saved!';
+		}
+		else {
+			foreach ($success[$_POST['section']] as $key => $value) {
+				$monErrors[] = $value;
+			}
+		}
+
+		// Reload configuration files
+		$monConfiguration = json_load($monConfiguration, MON_CONFIGURATION_PATH, '');
+		foreach ($monConfiguration as $key => $details) {
+			if (empty($monConfiguration[$key])) {
+				$monErrors[] = 'Unable to load configuration file "'.MON_CONFIGURATION_PATH.$key.'.json"!';
+			}
+			else {
+				// Something to do here?
+			}
+		}
+	}
+
+	// Authenticate the administrator
+	if (!isset($_SESSION['loged-in'])) {
+		if (isset($_POST['settings_password'])) {
+			if ($_POST['settings_password'] == $monConfiguration['usersettings']['admin_password']) {
+				$_SESSION['loged-in'] = true;
+			}
+			else {
+				$monErrors[] = 'Wrong Administrator Password!';
+			}
+		}
+	}
 
 ?>
