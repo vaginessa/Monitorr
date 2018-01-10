@@ -1,8 +1,9 @@
 ![](https://raw.githubusercontent.com/Monitorr/Monitorr/master/assets/img/monitorrbanner.png)
+# !! DO NOT USE THIS BRANCH, STILL VERY MUCH IN DEVELOPMENT !!
 
 ## - *Monitorr* is a webfront to live display the status of any webapp or service
 
-**Version:** v0.12.2d [DEVELOP]
+**Version:** v0.5.0s (pre-alpha) [SETTINGS]
 
 [![](https://img.shields.io/github/release/monitorr/monitorr.svg?style=flat)](https://github.com/monitorr/monitorr/releases) [MASTER]
 
