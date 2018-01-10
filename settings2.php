@@ -245,13 +245,13 @@ $monConfigurationSettings = array(
 				'help' => 'Refresh time to check all services',
 				'type' => 'string',
 				'default' => '10000',
-			)
+			),
 	)
 ),
 	'services' => array( // SERVICES TBD
 		'name' => 'User Services',
 		'description' => 'Monitorr Services',
-		'monservice' => array(
+		'settings' => array(
 			//EXAMPLE ONLY and thought process
 			'id' => array( // DEVCHANGETHIS
 				'name' => 'id',
