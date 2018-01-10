@@ -61,7 +61,7 @@ $monConfigurationSettings = array(
 			'name' => 'Version',
 			'help' => '',
 			'type' => 'info',
-			'default' => 'v1.0.1s (alpha)' //DEVCHANGETHIS
+			'default' => 'v0.5.0s (alpha)' //DEVCHANGETHIS
 		),
 		'script_guid' => array( //DEVCHANGETHIS is this even needed?
 			'name' => 'GUID',
@@ -228,6 +228,7 @@ $monConfigurationSettings = array(
 				    'Pacific/Auckland'     => "(GMT+12:00) Auckland",
 				    'Pacific/Fiji'         => "(GMT+12:00) Fiji",
 				),
+				'default' => '',
 			),
 			'timestandard' => array(
 				'name' => 'Time Standard',
@@ -294,8 +295,8 @@ $monConfigurationSettings = array(
 				'help' => 'The branch you want to be on for updates',
 				'type' => 'single_option',
 				'options' => array(
-					'Master' => 'safe', // DEVCHANGETHIS
-					'Develop' => 'edgy' // DEVCHANGETHIS
+					'Master' => 'Master', // DEVCHANGETHIS
+					'develop' => 'Develop' // DEVCHANGETHIS
 				),
 				'default' => 'master'
 			),
