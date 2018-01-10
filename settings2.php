@@ -68,7 +68,7 @@ $monConfigurationSettings = array(
 			'help' => 'Globally Unique IDentifier of the script',
 			'type' => 'info',
 			'default' => ''
-		)
+		),
 	),
 	'usersettings' => array( // MAIN USER SETTINGS
 		'name' => 'User Settings',
@@ -246,8 +246,8 @@ $monConfigurationSettings = array(
 				'type' => 'string',
 				'default' => '10000',
 			),
-	)
-),
+		),
+	),
 	'services' => array( // SERVICES TBD
 		'name' => 'User Services',
 		'description' => 'Monitorr Services',
@@ -389,8 +389,8 @@ $monConfigurationSettings = array(
 				'type' => 'string',
 				'default' => ''
 			),
-	)
-)
+		),
+	),
 );
 //$mon_strings = array();
 $monErrors = array();
