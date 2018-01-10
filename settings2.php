@@ -8,11 +8,11 @@ session_start();
 //search DEVCHANGETHIS for things that need looking at -jonfinley
 
 // Log out if requested << not setup DEVCHANGETHIS
-//if (isset($_GET['logout']) and isset($_SESSION['loged-in'])) {
-//	unset($_SESSION['loged-in']);
-//	header('Location: index.php');
-//	die;
-//}
+if (isset($_GET['logout']) and isset($_SESSION['loged-in'])) {
+	unset($_SESSION['loged-in']);
+	header('Location: index.php');
+	die;
+}
 
 // Defining constants
 define('MON_PATH', '');
