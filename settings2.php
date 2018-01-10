@@ -307,25 +307,25 @@ $monConfigurationSettings = array(
 				'name' => 'CPU Good',
 				'help' => 'CPU% less than this will be green',
 				'type' => 'string',
-				'default' => '50'
+				'default' => '50',
 			),
 			'cpuwarn' => array( // DEVCHANGETHIS
 				'name' => 'CPU Warn',
 				'help' => 'CPU% less than this will be yellow',
 				'type' => 'string',
-				'default' => '90'
+				'default' => '90',
 			),
 			'ramok' => array( // DEVCHANGETHIS
 				'name' => 'RAM Good',
 				'help' => 'RAM% less than this will be green',
 				'type' => 'string',
-				'default' => '50'
+				'default' => '50',
 			),
 			'ramwarn' => array( // DEVCHANGETHIS
 				'name' => 'RAM Warn',
 				'help' => 'RAM% less than this will be yellow',
 				'type' => 'string',
-				'default' => '90'
+				'default' => '90',
 			),
 			'coloron' => array( // DEVCHANGETHIS
 				'name' => 'Online Color',
