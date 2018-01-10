@@ -1,5 +1,5 @@
 ![](https://raw.githubusercontent.com/Monitorr/Monitorr/master/assets/img/monitorrbanner.png)
-# !! DO NOT USE THIS BRANCH, STILL VERY MUCH IN DEVELOPMENT !!
+# !! DO NOT USE THIS BRANCH, STILL IN DEVELOPMENT !!
 
 ## - *Monitorr* is a webfront to live display the status of any webapp or service
 
