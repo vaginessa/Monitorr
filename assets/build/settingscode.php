@@ -1,4 +1,4 @@
-
+<?
 // EMPTY SETTINGS
 if (empty($monConfiguration['usersettings']['admin_password'])) {
 	$monOutput['Content'] .= '<form class="form-horizontal" action="'.MON_BASE_PATH.'" method="post">'.PHP_EOL;
@@ -266,3 +266,4 @@ else if (isset($_SESSION['loged-in'])) {
 	$output->set($key, $content);
 	}
 	echo $output->output();
+?>
