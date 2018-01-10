@@ -1,11 +1,3 @@
 {
-    "title": "monitorr",
-    "siteurl": "http://localhost/monitorr",
-    "admin_password": "test",
-    "language": "en",
-    "settings_link": "1",
-    "debug": "0",
-    "timezone": "",
-    "timestandard": "world",
-    "rftime": "10000",
+    "admin_password": "test"
 }
