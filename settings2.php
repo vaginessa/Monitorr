@@ -45,29 +45,33 @@ $monSomethingToSave = false;
 
 $monConfigurationSettings = array(
 	'general' => array( // GENERIC INFO NOT TO BE CHANGED EXCEPT BY DEV
-		'script_name' => array(
-			'name' => 'Program Name',
-			'help' => '',
-			'type' => 'info',
-			'default' => 'Monitorr'
-		),
-		'script_description' => array(
-			'name' => 'Description',
-			'help' => '',
-			'type' => 'info',
-			'default' => 'WE MONITORR YOUR SHIT!!!', //DEVCHANGETHIS
-		),
-		'script_version' => array(
-			'name' => 'Version',
-			'help' => '',
-			'type' => 'info',
-			'default' => 'v0.5.0s (alpha)' //DEVCHANGETHIS
-		),
-		'script_guid' => array( //DEVCHANGETHIS is this even needed?
-			'name' => 'GUID',
-			'help' => 'Globally Unique IDentifier of the script',
-			'type' => 'info',
-			'default' => ''
+		'name' => 'General Information',
+		'description' => 'Information about your Installation',
+		'settings' => array(
+			'script_name' => array(
+				'name' => 'Program Name',
+				'help' => '',
+				'type' => '',
+				'default' => 'Monitorr'
+			),
+			'script_description' => array(
+				'name' => 'Description',
+				'help' => '',
+				'type' => 'info',
+				'default' => 'WE MONITORR YOUR SHIT!!!', //DEVCHANGETHIS
+			),
+			'script_version' => array(
+				'name' => 'Version',
+				'help' => '',
+				'type' => 'info',
+				'default' => 'v0.5.0s (alpha)' //DEVCHANGETHIS
+			),
+			'script_guid' => array( //DEVCHANGETHIS is this even needed?
+				'name' => 'GUID',
+				'help' => 'Globally Unique IDentifier of the script',
+				'type' => 'info',
+				'default' => ''
+			),
 		),
 	),
 	'usersettings' => array( // MAIN USER SETTINGS
@@ -567,6 +571,19 @@ else if (isset($_SESSION['loged-in'])) {
 	$monOutput['Content'] .= '<form class="form-horizontal" action="'.MON_BASE_PATH.'?section='.$monConfigurationSection.'" method="post">'.PHP_EOL;
 	$monOutput['Content'] .= '<fieldset>'.PHP_EOL;
 	$monOutput['Content'] .= '<legend>'.$monConfigurationSettings[$monConfigurationSection]['description'].'</legend>'.PHP_EOL;
+
+	// Creating the settings menu
+	foreach($monConfigurationSettings as $key => $value) {
+		$monOutput['Menu'] .= '<li class="mon_menu';
+		if ($key == $monConfigurationSection) {
+			$monOutput['Menu'] .= ' mon_menu_selected selected';
+		}
+		$monOutput['Menu'] .= '"><a href="'.MON_BASE_PATH.'?section='.$key.'">';
+		$monOutput['Menu'] .= '<span class="fa fa-gear fa-lg"></span>&nbsp;&nbsp;';
+		$monOutput['Menu'] .= $value['name'].'</a></li>'.PHP_EOL;
+	}
+	$monOutput['Menu'] .= '<li class="mon_menu"><a href="'.MON_BASE_PATH.'?logout=1"><i class="fa fa-sign-out fa-lg"></i>&nbsp;&nbsp;Log out</a></li>'.PHP_EOL;
+	$monOutput['Menu'] .= '<li class="mon_menu"><a href="index.php"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;Back to Frontend</a></li>'.PHP_EOL;
 
 	// Creating the settings content
 	foreach ($monConfigurationSettings[$monConfigurationSection]['settings'] as $key => $value) {
