@@ -23,25 +23,26 @@ function urlExists($url) {
         $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
 
         if($httpCode >= 200 && $httpCode < 400 || $httpCode == 401 || $httpCode == 405) {
-    //either variable or return or echo
-    echo '
-        <div class="col-lg-4">
-        <a class="servicetile" href="'. $k['link'] .'" target="_blank" style="display: block">
-            <div id="serviceimg">
-                <p><img id="'. strtolower($t) .'-service-img" src="assets/img/'. strtolower($k['image']) .'" style="height:85px" alt=""></p>
-            </div>
-            <div id="servicetitle">
-                <div class="servicetext">
-                    <p>'. ucfirst($t) .'</p>
-                </div>
-            </div>
-            <p class="btnonline">Online</p>
-        </a>
-    </div>
-    ';
-}
 
-        }
+                    echo '<div class="col-lg-4">';
+                        echo '<a class="servicetile" href="'. $k['link'] .'" target="_blank" style="display: block">';
+
+                            echo '<div id="serviceimg">';
+                                echo '<p><img id="'. strtolower($t) .'-service-img" src="assets/img/'. strtolower($k['image']) .'" style="height:85px" alt=""></p>';
+                            echo '</div>';
+
+                            echo '<div id="servicetitle">';
+                                echo '<div class="servicetext">';
+                                    echo '<p>'. ucfirst($t) .'</p>';
+                                echo '</div>';
+                            echo '</div>';
+
+                            echo '<p class="btnonline">Online</p>';
+
+                        echo '</a>';
+                    echo '</div>';
+
+                } 
 
         else {
 
