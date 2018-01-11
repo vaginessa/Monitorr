@@ -1,3 +1,18 @@
+    <!-- SETTINGS BRANCH -->
+    <!--  Format for parsing data from NEW .JSON FILES: -->
+    <!-- 
+    EXAMPLE:
+        // <?php 
+        //    // LOAD JSON file:
+        //    $str = file_get_contents('assets/config/usersettings.json');
+        //    // decode JSON:
+        //    $json = json_decode($str, true);
+        //    // get the data:
+        //    $sitetile = $json['title'];
+        //    // echo it:
+        //    echo $sitetile . PHP_EOL;
+        // ?> 
+         -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +42,8 @@
         <meta name="version" content="php">
 
         <!-- Bootstrap core CSS -->
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet">  <!-- Why aren't we using bootstrap.min???? -->
 
         <!-- Fonts from Google Fonts -->
         <link href='//fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
@@ -77,7 +93,8 @@
 
         </style>
 
-        <?php $file = 'assets/config.php';
+        <?php $file = 'assets/config.php'; //REMOVE WHEN SETTINGS IS DONE
+        
             //Use the function is_file to check if the config file already exists or not.
             if(!is_file($file)){
                 copy('assets/config.php.sample', $file);
@@ -88,7 +105,14 @@
         <?php include ('assets/php/check.php') ;?>
         <?php include ('assets/php/gitinfo.php'); ?>
 
-        <title><?php echo $config['title']; ?></title>
+        <title>
+            <?php 
+                $str = file_get_contents('assets/config/usersettings.json');
+                $json = json_decode($str, true);
+                $title = $json['title'];
+                echo $title . PHP_EOL;
+            ?>
+        </title>
         
         <script src="assets/js/jquery.min.js"></script>
 
@@ -103,9 +127,16 @@
                 timeout: 5000,
                 success: function(data) {
                     $("#timer").html(data); 
-                    window.setTimeout(update, 3000);
-                    }
-                });
+                    window.setTimeout(update,
+                        <?php 
+                            $str = file_get_contents('assets/config/monitorrsettings.json');
+                            $json = json_decode($str, true);
+                            $rftime = $json['rftime'];
+                            echo $rftime . PHP_EOL;
+                        ?>
+                        );
+                        }
+                    });
                 }
                 update();
             });
@@ -124,7 +155,14 @@
             $(document).ready(function () {
                 $(":checkbox").change(function () {
                     if ($(this).is(':checked')) {
-                        nIntervId = setInterval(statusCheck, <?php echo $config['rfsysinfo']; ?>);
+                        nIntervId = setInterval(statusCheck, 
+                            <?php 
+                                $str = file_get_contents('assets/config/monitorrsettings.json');
+                                $json = json_decode($str, true);
+                                $rfsysinfo = $json['rfsysinfo'];
+                                echo $rfsysinfo . PHP_EOL;
+                            ?>
+                            );
                     } else {
                         clearInterval(nIntervId);
                     }
@@ -153,7 +191,20 @@
             <div id="center">
                 <div id="centerinner" class="navbar-brand">
                     <div id="centertext" class="navbar-brand">
-                        <a class="navbar-brand" href="<?php echo $config['siteurl']; ?>"> <?php echo $config['title']; ?></a>
+                        <a class="navbar-brand" href="
+                            <?php 
+                                $str = file_get_contents('assets/config/usersettings.json');
+                                $json = json_decode($str, true);
+                                $siteurl = $json['siteurl'];
+                                echo $siteurl . PHP_EOL;
+                            ?>"> 
+                            <?php
+                                $str = file_get_contents('assets/config/usersettings.json');
+                                $json = json_decode($str, true);
+                                $title = $json['title'];
+                                echo $title . PHP_EOL;
+                            ?>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -226,6 +277,8 @@
 
         <div id="footer">
         
+            <p> <a class="footer a" href="settings2.php" target="_blank"> Settings </a> </p>
+
             <p> <a class="footer a" href="https://github.com/monitorr/Monitorr" target="_blank"> Repo: Monitorr </a> // <a class="footer a" href="https://github.com/Monitorr/Monitorr/releases" target="_blank"> Version: <?php echo file_get_contents( "assets/js/version/version.txt" );?> </a> </p>
 
             <script src="assets/js/update.js"></script>

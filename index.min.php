@@ -27,7 +27,7 @@
         <meta name="version" content="php">
 
         <!-- Bootstrap core CSS -->
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Fonts from Google Fonts -->
         <link href='//fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>

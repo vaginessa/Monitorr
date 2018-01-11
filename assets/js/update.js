@@ -52,7 +52,7 @@ $(document).ready(function(){
 			   }else{
 				    // user has the latest version already installed
 					$('#version_check').html("");   
-					$('#version_check').html("You already have the latest version.");   
+					$('#version_check').html("You already have the latest version");   
 			   }
 		   },
 		   error: function() {
